@@ -1,0 +1,50 @@
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Companies {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    name      String
+    logo      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now())
+}
+
+model Signatures {
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    companyId  String
+    name       String
+    value      Float
+    startDate  DateTime
+    chargeDate DateTime
+    cancelDate DateTime
+    reminder   DateTime
+    status     Int
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @default(now())
+}
+
+model UserSignatures {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    userId      String
+    signatureId String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @default(now())
+    User        User     @relation(fields: [userId], references: [id])
+}
+
+model User {
+    id             String           @id @default(auto()) @map("_id") @db.ObjectId
+    name           String
+    email          String
+    password       String
+    token          String
+    UserSignatures UserSignatures[]
+    createdAt      DateTime         @default(now())
+    updatedAt      DateTime         @default(now())
+}
