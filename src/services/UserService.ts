@@ -1,4 +1,4 @@
-import prismaClient from "../prisma"
+import { prismaClient } from "../prisma"
 
 interface IUser {
     name: string
@@ -27,7 +27,7 @@ class UserService {
             })
 
             return user;
-        }catch(err){
+        } catch (err) {
             throw err;
         }
 

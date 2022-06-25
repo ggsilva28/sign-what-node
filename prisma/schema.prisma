@@ -17,33 +17,26 @@ model Companies {
 
 model Signatures {
     id         String   @id @default(auto()) @map("_id") @db.ObjectId
-    companyId  String
+    userId     String
+    companyId  String  
     name       String
     value      Float
     startDate  DateTime
     chargeDate DateTime
     cancelDate DateTime
-    reminder   DateTime
+    reminder   Int
     status     Int
     createdAt  DateTime @default(now())
     updatedAt  DateTime @default(now())
-}
-
-model UserSignatures {
-    id          String   @id @default(auto()) @map("_id") @db.ObjectId
-    userId      String
-    signatureId String
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @default(now())
-    User        User     @relation(fields: [userId], references: [id])
+    User       User     @relation(fields: [userId], references: [id])
 }
 
 model User {
     id             String           @id @default(auto()) @map("_id") @db.ObjectId
     name           String
     email          String           @unique
-    password       String          
-    UserSignatures UserSignatures[]
+    password       String
     createdAt      DateTime         @default(now())
     updatedAt      DateTime         @default(now())
+    Signatures     Signatures[]
 }

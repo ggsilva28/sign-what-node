@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { UserController } from "./controllers/UserController";
 import { AuthController } from "./controllers/AuthController";
+import { SignatureController } from "./controllers/SignatureController";
 
 import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 import { passwordHash } from "./middleware/passwordHash";
@@ -9,10 +10,20 @@ const router = Router()
 
 router.get("/")
 
+//User
 router.get("/user/profile", ensureAuthenticated, new UserController().profile)
 router.post("/user/create", passwordHash, new UserController().create)
 
+//Auth
 router.post("/auth/login", passwordHash, new AuthController().login)
 
+//Signatures
+router.get("/signatures/active", ensureAuthenticated, new SignatureController().active)
+router.get("/signatures/canceled", ensureAuthenticated, new SignatureController().canceled)
+router.get("/signatures/view/:id", ensureAuthenticated, new SignatureController().view)
+router.post("/signatures/create", ensureAuthenticated, new SignatureController().create)
+router.put("/signatures/update/:id", ensureAuthenticated, new SignatureController().update)
+router.put("/signatures/cancel/:id", ensureAuthenticated, new SignatureController().cancel)
+router.delete("/signatures/delete/:id", ensureAuthenticated, new SignatureController().delete)
 
 export { router }
