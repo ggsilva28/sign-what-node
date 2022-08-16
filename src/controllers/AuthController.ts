@@ -11,14 +11,14 @@ class AuthController {
         try {
             const user = await service.login(email, password)
 
-            return response.json({
+            return response.status(200).json({
                 code: 200,
                 message: 'login.success',
                 data: user
             })
         } catch (err) {
             
-            return response.json({
+            return response.status(400).json({
                 code: 400,
                 error: err
             })

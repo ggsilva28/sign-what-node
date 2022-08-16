@@ -9,14 +9,14 @@ class SignatureController {
         try {
             const user = await service.active()
 
-            return response.json({
+            return response.status(200).json({
                 code: 200,
                 message: 'signatures.listed',
                 data: user
             })
         } catch (err) {
 
-            return response.json({
+            return response.status(400).json({
                 code: 400,
                 error: err
             })
@@ -29,14 +29,14 @@ class SignatureController {
         try {
             const user = await service.canceled()
 
-            return response.json({
+            return response.status(200).json({
                 code: 200,
                 message: 'signatures.listed',
                 data: user
             })
         } catch (err) {
 
-            return response.json({
+            return response.status(400).json({
                 code: 400,
                 error: err
             })
@@ -49,14 +49,14 @@ class SignatureController {
         try {
             const user = await service.view(request.params.id)
 
-            return response.json({
+            return response.status(200).json({
                 code: 200,
                 message: 'signatures.view',
                 data: user
             })
         } catch (err) {
 
-            return response.json({
+            return response.status(400).json({
                 code: 400,
                 error: err
             })
@@ -71,14 +71,14 @@ class SignatureController {
         try {
             const user = await service.create({ ...body, userId: user_id })
 
-            return response.json({
+            return response.status(200).json({
                 code: 200,
                 message: 'signatures.create',
                 data: user
             })
         } catch (err) {
 
-            return response.json({
+            return response.status(400).json({
                 code: 400,
                 error: err
             })
@@ -91,14 +91,14 @@ class SignatureController {
         try {
             const user = await service.update(request.params.id, request.body)
 
-            return response.json({
+            return response.status(200).json({
                 code: 200,
                 message: 'signatures.update',
                 data: user
             })
         } catch (err) {
 
-            return response.json({
+            return response.status(400).json({
                 code: 400,
                 error: err
             })
@@ -111,14 +111,14 @@ class SignatureController {
         try {
             const user = await service.cancel(request.params.id)
 
-            return response.json({
+            return response.status(200).json({
                 code: 200,
                 message: 'signatures.canceled',
                 data: user
             })
         } catch (err) {
 
-            return response.json({
+            return response.status(400).json({
                 code: 400,
                 error: err
             })
@@ -131,14 +131,14 @@ class SignatureController {
         try {
             const user = await service.delete(request.params.id)
 
-            return response.json({
+            return response.status(200).json({
                 code: 200,
                 message: 'signatures.deleted',
                 data: user
             })
         } catch (err) {
 
-            return response.json({
+            return response.status(400).json({
                 code: 400,
                 error: err
             })
