@@ -16,6 +16,7 @@ router.post("/user/create", passwordHash, new UserController().create)
 
 //Auth
 router.post("/auth/login", passwordHash, new AuthController().login)
+router.get("/auth/token", ensureAuthenticated, new AuthController().token)
 
 //Signatures
 router.get("/signatures/active", ensureAuthenticated, new SignatureController().active)

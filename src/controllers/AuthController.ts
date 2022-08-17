@@ -17,12 +17,19 @@ class AuthController {
                 data: user
             })
         } catch (err) {
-            
+
             return response.status(400).json({
                 code: 400,
                 error: err
             })
         }
+    }
+
+    async token(request: Request, response: Response) {
+        return response.status(200).json({
+            code: 200,
+            message: 'validate.success',
+        })
     }
 
 }
