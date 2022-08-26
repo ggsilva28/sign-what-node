@@ -1,4 +1,5 @@
 import { Template as DefaultTemplate } from "./default";
+
 class Template {
 
     username = '';

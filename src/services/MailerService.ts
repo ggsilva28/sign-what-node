@@ -10,7 +10,7 @@ class MailerService {
 
     try {
       const { Template } = await import(`../templates/emails/${template}`)
-      const templateClass: { getTemplate: any } = new Template();
+      const templateClass: { getTemplate: () => {} } = new Template();
 
       for (let key in variables) {
         if (templateClass[key] !== undefined) {
