@@ -6,23 +6,37 @@ interface MailVariables {
 
 class MailerService {
 
-  async send(email: string, template: string, variables: MailVariables) {
-
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-
-    const msg = {
-      to: email, // Change to your recipient
-      from: 'ggsilva28SMTP@gmail.com', // Change to your verified sender
-      subject: variables.subject || 'Sign What',
-      text: 'and easy to do anywhere, even with Node.js',
-      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-    }
+  async send(email: string, template: string, variables: MailVariables | any) {
 
     try {
-      const mail = await sgMail.send(msg)
-      return mail
+      const { Template } = await import(`../templates/emails/${template}`)
+      const templateClass: { getTemplate: any } = new Template();
+
+      for (let key in variables) {
+        if (templateClass[key] !== undefined) {
+          templateClass[key] = variables[key]
+        }
+      }
+
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+      const msg = {
+        to: email,
+        from: 'ggsilva28SMTP@gmail.com', // Change to your verified sender
+        subject: variables.subject || 'Sign What',
+        html: templateClass.getTemplate(),
+      }
+
+      try {
+        const mail = await sgMail.send(msg)
+        return mail
+      } catch (error) {
+        throw new Error(error)
+      }
+
     } catch (error) {
-      throw new Error(error)
+      console.log(error)
+      throw new Error('Template not found')
     }
 
   }

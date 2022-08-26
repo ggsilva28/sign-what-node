@@ -6,7 +6,7 @@ class RecoverPassController {
     const service = new MailerService();
 
     try {
-      const user = await service.send("gagsilva28@gmail.com", "", {  });
+      const user = await service.send("gagsilva28@gmail.com", "recover", { username: 'Gabriel' });
 
       return response.status(200).json({
         code: 200,
