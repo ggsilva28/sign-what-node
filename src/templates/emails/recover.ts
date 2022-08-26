@@ -1,11 +1,15 @@
+import { Template as DefaultTemplate } from "./default";
 class Template {
 
     username = '';
 
     getTemplate() {
-        return `
-            Hello ${this.username}
+        const defaultTemplate = new DefaultTemplate();
+        defaultTemplate.content = `
+            Opa bão? Eae ${this.username}
         `
+
+        return defaultTemplate.getTemplate()
     }
 }
 
