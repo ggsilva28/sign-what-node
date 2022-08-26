@@ -1,5 +1,7 @@
-import { serverHttp } from "./app"
+import { serverHttp } from "./app";
 
-serverHttp.listen(process.env.PORT || 3003, () => {
-    console.log("Server online")
-})
+const port = process.env.PORT || 3003;
+
+serverHttp.listen(port, () => {
+  console.log("Server online on: ", port);
+});

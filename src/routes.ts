@@ -2,9 +2,11 @@ import { Router } from "express";
 import { UserController } from "./controllers/UserController";
 import { AuthController } from "./controllers/AuthController";
 import { SignatureController } from "./controllers/SignatureController";
+import { RecoverPassController } from "./controllers/RecoverPassController";
 
 import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 import { passwordHash } from "./middleware/passwordHash";
+
 
 const router = Router()
 
@@ -26,5 +28,8 @@ router.get("/signatures/view/:id", ensureAuthenticated, new SignatureController(
 router.put("/signatures/update/:id", ensureAuthenticated, new SignatureController().update)
 router.put("/signatures/cancel/:id", ensureAuthenticated, new SignatureController().cancel)
 router.delete("/signatures/delete/:id", ensureAuthenticated, new SignatureController().delete)
+
+//RecorverPass
+router.post("/recover/verify-email", new RecoverPassController().verifyEmail)
 
 export { router }
