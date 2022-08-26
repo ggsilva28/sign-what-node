@@ -1,38 +1,32 @@
-const nodemailer = require("nodemailer");
+const sgMail = require('@sendgrid/mail')
 
 interface MailVariables {
   subject?: string;
 }
 
 class MailerService {
+
   async send(email: string, template: string, variables: MailVariables) {
-    console.log("mailconfig");
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-    console.log("mailoptions");
 
-    const mailOptions = {
-      from: process.env.SMTP_MAIL,
-      to: email,
-      subject: variables.subject || "Sign What?",
-      text: "That was easy!",
-    };
-    try{
-        const mail = await transporter.sendMail(mailOptions)
-        return mail 
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-    }catch(error){
-        return error
+    const msg = {
+      to: email, // Change to your recipient
+      from: 'ggsilva28SMTP@gmail.com', // Change to your verified sender
+      subject: variables.subject || 'Sign What',
+      text: 'and easy to do anywhere, even with Node.js',
+      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+    }
+
+    try {
+      const mail = await sgMail.send(msg)
+      return mail
+    } catch (error) {
+      throw new Error(error)
     }
 
   }
+
 }
 
 export { MailerService };
