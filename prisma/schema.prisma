@@ -18,7 +18,7 @@ model Companies {
 model Signatures {
     id         String   @id @default(auto()) @map("_id") @db.ObjectId
     userId     String
-    companyId  String  
+    companyId  String
     name       String
     value      Float
     startDate  DateTime
@@ -32,11 +32,20 @@ model Signatures {
 }
 
 model User {
-    id             String           @id @default(auto()) @map("_id") @db.ObjectId
-    name           String
-    email          String           @unique
-    password       String
-    createdAt      DateTime         @default(now())
-    updatedAt      DateTime         @default(now())
-    Signatures     Signatures[]
+    id         String       @id @default(auto()) @map("_id") @db.ObjectId
+    name       String
+    email      String       @unique
+    password   String
+    createdAt  DateTime     @default(now())
+    updatedAt  DateTime     @default(now())
+    Signatures Signatures[]
+}
+
+model VerificationCodes {
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    code       String
+    email      String
+    validUntil DateTime
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @default(now())
 }

@@ -30,6 +30,6 @@ router.put("/signatures/cancel/:id", ensureAuthenticated, new SignatureControlle
 router.delete("/signatures/delete/:id", ensureAuthenticated, new SignatureController().delete)
 
 //RecorverPass
-router.post("/recover/verify-email", new RecoverPassController().verifyEmail)
+router.post("/recover/verify-email", new RecoverPassController().verifyEmail.bind( new RecoverPassController()))
 
 export { router }

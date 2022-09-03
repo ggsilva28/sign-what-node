@@ -19,11 +19,10 @@ class UserService {
     }
 
     async create(data: IUser) {
-        const { name, email, password } = data;
 
         try {
             const user = await prismaClient.user.create({
-                data: { name, email, password }
+                data:data
             })
 
             return user;
@@ -31,6 +30,26 @@ class UserService {
             throw err;
         }
 
+    }
+
+    async getEmail(email: string){
+        try{
+            const user = await prismaClient.user.findFirst({
+                where: {
+                    email:email
+                }
+            })
+
+            if(!user){
+                throw 'user.not_found'
+            }
+            
+            return user
+
+        } catch(err){
+            throw err;
+        }
+        
     }
 
 }
